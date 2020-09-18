@@ -9,10 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.appril</groupId>
-    <artifactId>apprilsmile</artifactId>
+    <artifactId>springboot-modules</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>appril</name>
-    <description>Demo project for Spring Boot</description>
+    <name>springboot-modules</name>
     <modules>
         <module>springboot-utils</module>
         <module>springboot-redis</module>
