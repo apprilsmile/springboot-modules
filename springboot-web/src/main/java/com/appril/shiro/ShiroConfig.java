@@ -26,13 +26,20 @@ public class ShiroConfig {
         Map<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
         // 配置不会被拦截的链接 顺序判断
         // <!-- authc:所有url都必须认证通过才可以访问; anon:所有url都都可以匿名访问-->
+
         filterChainDefinitionMap.put("/login", "anon");
+        //跳过静态资源
+        filterChainDefinitionMap.put("/static/**", "anon");
+        //文件上传下载跳过校验
+        filterChainDefinitionMap.put("/fileHandle/**", "anon");
         //跳过校验
 //        filterChainDefinitionMap.put("/sysUser/**", "anon");
 
         //主要这行代码必须放在所有权限设置的最后，不然会导致所有 url 都被拦截 剩余的都需要认证
-        filterChainDefinitionMap.put("/**", "authc");
+        //test 注释掉不做任何拦截
+//        filterChainDefinitionMap.put("/**", "authc");
         // 如果不设置默认会自动寻找Web工程根目录下的"/login.jsp"页面
+        //test
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
         return shiroFilterFactoryBean;
 
