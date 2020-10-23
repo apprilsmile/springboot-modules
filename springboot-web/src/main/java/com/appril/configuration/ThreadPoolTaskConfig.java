@@ -12,7 +12,7 @@ import java.util.concurrent.ThreadPoolExecutor;
  * @date 2020/10/22
  * @description  线程池配置
  **/
-@Configuration
+//@Configuration
 @EnableAsync
 public class ThreadPoolTaskConfig {
 
