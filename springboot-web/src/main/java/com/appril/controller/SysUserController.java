@@ -6,6 +6,9 @@ import com.appril.utils.ApiResult;
 import com.appril.utils.HuToolUtils;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,6 +17,7 @@ import java.util.Date;
 
 @RestController
 @RequestMapping("/sysUser")
+@Api(tags = "用户管理相关接口")
 public class SysUserController {
     @Autowired
     public SysUserService sysUserService;
@@ -24,6 +28,7 @@ public class SysUserController {
      * @param sysUser 传递的实体
      * @return ApiResult转换结果
      */
+    @ApiOperation(value = "添加用户的接口", notes = "保存、修改用户信息")
     @PostMapping("/save")
     public ApiResult save(@RequestBody SysUser sysUser) {
         try {
@@ -47,6 +52,8 @@ public class SysUserController {
     }
 
     //删除对象信息
+    @ApiOperation(value = "根据id删除用户", notes = "用户删除")
+    @ApiImplicitParam(name = "id", value = "用户ID",  paramType = "path", required = true, dataType =  "Long")
     @PostMapping("/{id}")
     public ApiResult delete(@PathVariable("id") Long id) {
         try {

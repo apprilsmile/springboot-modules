@@ -1,6 +1,8 @@
 package com.appril.controller;
 
 import com.appril.utils.ApiResult;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,6 +29,8 @@ public class UploadOrDownloadController {
     /**
      * 上传单个文件
      */
+    @ApiOperation(value = "上传单个文件", notes = "文件上传")
+    @ApiImplicitParam(name = "fileUpName", value = "文件参数",  paramType = "path", required = true, dataType =  "File")
     @PostMapping("/uploadSingle")
     public ApiResult uploadSingleFile(@RequestParam("fileUpName") MultipartFile file) {//HttpServletRequest request
         /**

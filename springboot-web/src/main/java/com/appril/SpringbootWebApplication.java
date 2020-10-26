@@ -31,7 +31,14 @@ public class SpringbootWebApplication extends WebMvcConfigurationSupport {
      */
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler(uploadHandlerPath).addResourceLocations("file:" + uploadResourceLocation);
+        registry.addResourceHandler(uploadHandlerPath)
+                .addResourceLocations("file:" + uploadResourceLocation);
+        //swagger 配置映射
+        registry.addResourceHandler("swagger-ui.html")
+                .addResourceLocations("classpath:/META-INF/resources/");
+        registry.addResourceHandler("/webjars/**")
+                .addResourceLocations("classpath:/META-INF/resources/webjars/");
+
         super.addResourceHandlers(registry);
     }
 }
