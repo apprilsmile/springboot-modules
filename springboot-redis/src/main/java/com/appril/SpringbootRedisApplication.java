@@ -1,4 +1,4 @@
-package com.appril.springbootredis;
+package com.appril;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
