@@ -54,7 +54,7 @@ public class MpGenerator {
         gc.setOpen(false);
         gc.setMapperName("%sMapper");
         gc.setXmlName("%sMapper");
-        gc.setServiceName("%sService");
+        gc.setServiceName("%sIService");
         gc.setServiceImplName("%sServiceImpl");
         gc.setControllerName("%sController");
         // gc.setSwagger2(true); 实体属性 Swagger2 注解

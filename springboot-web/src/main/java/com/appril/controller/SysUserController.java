@@ -1,6 +1,6 @@
 package com.appril.controller;
 
-import com.appril.service.SysUserService;
+import com.appril.service.ISysUserService;
 import com.appril.entity.SysUser;
 import com.appril.utils.ApiResult;
 import com.appril.utils.HuToolUtils;
@@ -20,7 +20,7 @@ import java.util.Date;
 @Api(tags = "用户管理相关接口")
 public class SysUserController {
     @Autowired
-    public SysUserService sysUserService;
+    public ISysUserService sysUserService;
 
     /**
      * 保存、修改 【区分id即可】
@@ -91,6 +91,14 @@ public class SysUserController {
         Page<SysUser> userPage = new Page<>(1, 10);
         QueryWrapper<SysUser> queryWrapper = new QueryWrapper<>();
         Page<SysUser> page = sysUserService.page(userPage, queryWrapper);
+        return ApiResult.isOkNoToken("查询成功", page);
+    }
+
+    //自定义sql分页查看
+    @PostMapping("/customizedPageList")
+    public ApiResult customizedPageList(@RequestBody SysUser sysUser) {
+        Page<SysUser> userPage = new Page<>(1, 10);
+        Page<SysUser> page = sysUserService.getCustomizedPageList(sysUser,userPage);
         return ApiResult.isOkNoToken("查询成功", page);
     }
 }

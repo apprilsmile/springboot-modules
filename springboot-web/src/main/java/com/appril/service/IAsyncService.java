@@ -5,7 +5,7 @@ package com.appril.service;
  * @date 2020/10/22
  * @description
  **/
-public interface AsyncService {
+public interface IAsyncService {
     public void sendMessage() throws Exception;
     public void sendEmail()throws Exception;
 }

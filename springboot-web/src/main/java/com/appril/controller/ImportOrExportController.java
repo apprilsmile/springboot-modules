@@ -5,7 +5,7 @@ import com.alibaba.excel.EasyExcel;
 import com.appril.excel.dto.SysUserEasyDto;
 import com.appril.excel.dto.SysUserPoiDto;
 import com.appril.excel.listener.SysUserListener;
-import com.appril.service.SysUserService;
+import com.appril.service.ISysUserService;
 import com.appril.utils.ApiResult;
 import com.appril.utils.ExcelPoiUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +29,7 @@ import java.util.List;
 public class ImportOrExportController {
 
     @Autowired
-    private SysUserService userService;
+    private ISysUserService userService;
 
     /**
      * poi导入excel

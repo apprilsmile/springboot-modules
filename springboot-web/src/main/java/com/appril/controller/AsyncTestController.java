@@ -1,6 +1,6 @@
 package com.appril.controller;
 
-import com.appril.service.AsyncService;
+import com.appril.service.IAsyncService;
 import com.appril.utils.ApiResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class AsyncTestController {
 
     @Autowired
-    private AsyncService asyncService;
+    private IAsyncService asyncService;
 
     @GetMapping("/threadPoolTaskTest")
     public ApiResult asyncTest(){

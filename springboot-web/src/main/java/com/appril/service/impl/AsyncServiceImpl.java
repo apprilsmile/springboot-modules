@@ -1,6 +1,6 @@
 package com.appril.service.impl;
 
-import com.appril.service.AsyncService;
+import com.appril.service.IAsyncService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Async;
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
  * @description
  **/
 @Service
-public class AsyncServiceImpl implements AsyncService {
+public class AsyncServiceImpl implements IAsyncService {
     Logger log = LoggerFactory.getLogger(AsyncServiceImpl.class);
 
     // 发送提醒短信

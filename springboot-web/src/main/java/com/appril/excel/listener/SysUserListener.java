@@ -5,7 +5,7 @@ import com.alibaba.excel.context.AnalysisContext;
 import com.alibaba.excel.event.AnalysisEventListener;
 import com.appril.entity.SysUser;
 import com.appril.excel.dto.SysUserEasyDto;
-import com.appril.service.SysUserService;
+import com.appril.service.ISysUserService;
 
 import java.util.List;
 
@@ -19,7 +19,7 @@ public class SysUserListener extends AnalysisEventListener<SysUserEasyDto> {
     /**
      * 假设这个是一个DAO，当然有业务逻辑这个也可以是一个service。当然如果不用存储这个对象没用。
      */
-    private SysUserService userService;
+    private ISysUserService userService;
 
     public SysUserListener() {
         // 这里是demo，所以随便new一个。实际使用如果到了spring,请使用下面的有参构造函数
@@ -30,7 +30,7 @@ public class SysUserListener extends AnalysisEventListener<SysUserEasyDto> {
      *
      * @param sysUserService
      */
-    public SysUserListener(SysUserService sysUserService) {
+    public SysUserListener(ISysUserService sysUserService) {
         this.userService = sysUserService;
     }
     /**

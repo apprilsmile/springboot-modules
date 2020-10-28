@@ -79,9 +79,9 @@ public class ${entity}Controller {
     //分页查看
     @GetMapping("/pageList")
     public ApiResult pageList(@RequestBody ${entity} ${table.entityPath}) {
-        Page<${entity}> userPage = new Page<>(1,10);
+        Page<${entity}> queryPage = new Page<>(1,10);
         QueryWrapper<${entity}> queryWrapper = new QueryWrapper<>();
-        Page<${entity}> page = ${table.entityPath}Service.page(userPage, queryWrapper);
+        Page<${entity}> page = ${table.entityPath}Service.page(queryPage, queryWrapper);
         return ApiResult.isOkNoToken("查询成功",page);
     }
 }

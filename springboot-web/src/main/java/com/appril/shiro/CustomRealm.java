@@ -1,11 +1,8 @@
 package com.appril.shiro;
 
-import cn.hutool.Hutool;
-import cn.hutool.core.util.ClassUtil;
 import com.appril.entity.SysUser;
-import com.appril.service.SysUserService;
+import com.appril.service.ISysUserService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
@@ -25,7 +22,7 @@ import java.util.Set;
 public class CustomRealm extends AuthorizingRealm {
 
     @Autowired
-    private SysUserService sysUserService;
+    private ISysUserService sysUserService;
 
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
