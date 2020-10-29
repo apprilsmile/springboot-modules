@@ -7,3 +7,4 @@
  2020/10/26: 集成swagger2
  2020/10/27: redis、分布式锁
  2020/10/28: 简单 Quartz
+ 2020/10/28: redisTemplate
