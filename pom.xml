@@ -19,7 +19,7 @@
         <module>springboot-rabbitmq</module>
         <module>springboot-common</module>
         <module>springboot-web</module>
-        <module>springboot-xxl-job</module>
+        <module>springboot-xxl-job-executor</module>
     </modules>
     <properties>
         <java.version>1.8</java.version>
