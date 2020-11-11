@@ -1,6 +1,7 @@
 package com.appril.springbootrabbitmq;
 
 import com.alibaba.fastjson.JSONObject;
+import com.appril.delay.DelayMessageSender;
 import com.appril.entity.User;
 import com.appril.server.MQSender;
 import org.junit.jupiter.api.Test;
@@ -34,5 +35,12 @@ class SpringbootRabbitmqApplicationTests {
         user.setRlNm("超级管理员");
         user.setRefMp("164984949");
         sender.sendUser(user);
+    }
+    @Autowired
+    private DelayMessageSender delayMessageSender;
+
+    @Test
+    void sendDelayMessage() {
+        delayMessageSender.sendDelayMessage("1000225959589");
     }
 }

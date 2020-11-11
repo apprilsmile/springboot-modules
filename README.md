@@ -8,4 +8,6 @@
  2020/10/27: redis、分布式锁  
  2020/10/28: 简单 Quartz  
  2020/10/29: redisTemplate、maven依赖、xxl-job  
- 2020/11/10: rabbitmq
+ 2020/11/10: rabbitmq  
+ 2020/11/11: 死信队列（订单超时）
+ 
