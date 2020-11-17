@@ -1,13 +1,13 @@
-package com.appril.springbootes;
+package com.appril;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SpringbootEsApplication {
+public class EsApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(SpringbootEsApplication.class, args);
+        SpringApplication.run(EsApplication.class, args);
     }
 
 }

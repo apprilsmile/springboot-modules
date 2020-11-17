@@ -10,5 +10,6 @@
  2020/10/29: redisTemplate、maven依赖、xxl-job  
  2020/11/10: rabbitmq  
  2020/11/11: 死信队列（订单超时）  
- 2020/11/12: 单机mongodb
+ 2020/11/12: 单机mongodb  
+ 2020/11/17: ElasticSearch API  
  
