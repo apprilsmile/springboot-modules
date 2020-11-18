@@ -12,4 +12,5 @@
  2020/11/11: 死信队列（订单超时）  
  2020/11/12: 单机mongodb  
  2020/11/17: ElasticSearch API  
+ 2020/11/17: ElasticSearch 增加用户、密码配置  
  

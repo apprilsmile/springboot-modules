@@ -62,7 +62,7 @@ class EsApplicationTests {
 //        BoolQueryBuilder titleQuery = QueryBuilders.boolQuery().must(QueryBuilders.termsQuery("title", titles));
 //        queryBuilder.withQuery(QueryBuilders.matchQuery("title","华为"));
         TermsQueryBuilder titleQuery = QueryBuilders.termsQuery("title", titles);
-        queryBuilder.withQuery(titleQuery);
+        queryBuilder.withQuery(QueryBuilders.matchAllQuery());
         SearchHits<Goods> search = restTemplate.search(queryBuilder.build(), Goods.class);
         search.get().forEach( e-> System.out.println(e.getContent().toString()));
     }
