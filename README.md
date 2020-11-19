@@ -13,4 +13,5 @@
  2020/11/12: 单机mongodb  
  2020/11/17: ElasticSearch API  
  2020/11/17: ElasticSearch 增加用户、密码配置  
+ 2020/11/19: memcached    
  

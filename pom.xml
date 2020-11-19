@@ -21,6 +21,8 @@
         <module>springboot-web</module>
         <module>springboot-xxl-job-executor</module>
         <module>springboot-mongodb</module>
+        <module>springboot-memcached</module>
+        <module>springboot-es</module>
     </modules>
     <properties>
         <java.version>1.8</java.version>
@@ -41,6 +43,7 @@
         <swagger-ui.version>2.9.2</swagger-ui.version>
         <quartz.version>2.3.0</quartz.version>
         <xxl-job.version>2.0.1</xxl-job.version>
+        <xmemcached.version>2.4.6</xmemcached.version>
     </properties>
 
     <dependencyManagement>
@@ -137,6 +140,12 @@
                 <groupId>com.xuxueli</groupId>
                 <artifactId>xxl-job-core</artifactId>
                 <version>${xxl-job.version}</version>
+            </dependency>
+            <!-- Springboot 整合 memcached -->
+            <dependency>
+                <groupId>com.googlecode.xmemcached</groupId>
+                <artifactId>xmemcached</artifactId>
+                <version>${xmemcached.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
