@@ -23,6 +23,7 @@
         <module>springboot-mongodb</module>
         <module>springboot-memcached</module>
         <module>springboot-es</module>
+        <module>springboot-nacos</module>
     </modules>
     <properties>
         <java.version>1.8</java.version>
@@ -44,6 +45,7 @@
         <quartz.version>2.3.0</quartz.version>
         <xxl-job.version>2.0.1</xxl-job.version>
         <xmemcached.version>2.4.6</xmemcached.version>
+        <nacos-config-spring-boot.version>0.2.7</nacos-config-spring-boot.version>
     </properties>
 
     <dependencyManagement>
@@ -146,6 +148,12 @@
                 <groupId>com.googlecode.xmemcached</groupId>
                 <artifactId>xmemcached</artifactId>
                 <version>${xmemcached.version}</version>
+            </dependency>
+            <!-- entity 依赖 -->
+            <dependency>
+                <groupId>com.alibaba.boot</groupId>
+                <artifactId>nacos-config-spring-boot-starter</artifactId>
+                <version>${nacos-config-spring-boot.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
