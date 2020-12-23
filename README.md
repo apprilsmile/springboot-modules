@@ -15,4 +15,5 @@
  2020/11/17: ElasticSearch 增加用户、密码配置  
  2020/11/19: memcached    
  2020/11/25: nacos 配置    
+ 2020/12/23: rocketmq     
  

@@ -24,6 +24,7 @@
         <module>springboot-memcached</module>
         <module>springboot-es</module>
         <module>springboot-nacos</module>
+        <module>springboot-rocketmq</module>
     </modules>
     <properties>
         <java.version>1.8</java.version>
@@ -46,6 +47,7 @@
         <xxl-job.version>2.0.1</xxl-job.version>
         <xmemcached.version>2.4.6</xmemcached.version>
         <nacos-config-spring-boot.version>0.2.7</nacos-config-spring-boot.version>
+        <rocketmq-client.version>4.7.1</rocketmq-client.version>
     </properties>
 
     <dependencyManagement>
@@ -154,6 +156,12 @@
                 <groupId>com.alibaba.boot</groupId>
                 <artifactId>nacos-config-spring-boot-starter</artifactId>
                 <version>${nacos-config-spring-boot.version}</version>
+            </dependency>
+            <!-- rocketmq 依赖 -->
+            <dependency>
+                <groupId>org.apache.rocketmq</groupId>
+                <artifactId>rocketmq-client</artifactId>
+                <version>${rocketmq-client.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
