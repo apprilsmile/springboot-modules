@@ -25,6 +25,7 @@
         <module>springboot-es</module>
         <module>springboot-nacos</module>
         <module>springboot-rocketmq</module>
+        <module>springboot-kafka</module>
     </modules>
     <properties>
         <java.version>1.8</java.version>
