@@ -3,6 +3,7 @@ package com.appril.demo;
 import com.appril.entity.Article;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -163,5 +164,11 @@ public class MongoDemo {
                 Criteria.where("visitCount").is(0)));
         articles = mongoTemplate.find(query, Article.class);
 
+        //排序
+        query.with(Sort.by(Sort.Direction.DESC,"visitCount",""));
+
+        //分页
+        query.skip(1);
+        query.limit(10);
     }
 }
