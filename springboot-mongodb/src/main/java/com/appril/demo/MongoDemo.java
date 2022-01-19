@@ -162,6 +162,16 @@ public class MongoDemo {
                 Criteria.where("author").is("jason"),
                 Criteria.where("visitCount").is(0)));
         articles = mongoTemplate.find(query, Article.class);
+        
+          //排序
+        query.with(Sort.by(Sort.Direction.DESC,"visitCount",""));
+
+        //分页
+        query.skip(1);
+        query.limit(10);
+
+        //返回指定内容字段 包含、排除
+        query.fields().include("author").exclude("visitCount");
 
     }
 }
