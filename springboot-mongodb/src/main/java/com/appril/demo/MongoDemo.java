@@ -170,5 +170,8 @@ public class MongoDemo {
         //分页
         query.skip(1);
         query.limit(10);
+
+        //返回指定内容字段 包含、排除
+        query.fields().include("author").exclude("visitCount");
     }
 }
