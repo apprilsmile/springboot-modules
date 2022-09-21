@@ -111,4 +111,107 @@ public class GoodsServiceImpl implements IGoodsService {
     public void delete() {
         restTemplate.delete("",Goods.class);
     }
+
+    /**
+     *  group by deviceId,siteTag limit 1 分组后获取分组排序中的一条记录
+     *{
+     *         BoolQueryBuilder boolQuery = ElasticUtil.buildBoolQueryBuilder(esQueryVo);
+     *         SearchSourceBuilder searchSourceBuilder = ElasticUtil.initSearchSourceBuilder(boolQuery, esQueryVo);
+     *         SearchRequest request = new SearchRequest(esQueryVo.getIdxName());
+     *         searchSourceBuilder.size(0);
+     *         int size = 50000;
+     *         AggregationBuilder aggregation = AggregationBuilders.terms("deviceIds").field("deviceId").size(size)
+     *                 .subAggregation(AggregationBuilders.terms("siteTags").field("siteTag").size(size)
+     *                         .subAggregation(AggregationBuilders.topHits("ones").size(1).sort("alarmTime", SortOrder.DESC)));//获取分组后时间倒排序第一条记录
+     *         searchSourceBuilder.aggregation(aggregation);
+     *         request.source(searchSourceBuilder);
+     *         try {
+     *             SearchResponse response = restHighLevelClient.search(request, RequestOptions.DEFAULT);
+     *             if (response == null) {
+     *                 return Collections.emptyList();
+     *             }
+     *             Terms deviceIds = response.getAggregations().get("deviceIds");
+     *             if (deviceIds == null) {
+     *                 return null;
+     *             }
+     *             List<Map<String, Object>> rn = new ArrayList<>();
+     *             for (Terms.Bucket bucket : deviceIds.getBuckets()) {
+     *                 Terms siteTags = bucket.getAggregations().get("siteTags");
+     *                 List<? extends Terms.Bucket> siteTagsBuckets = siteTags.getBuckets();
+     *                 if (!siteTagsBuckets.isEmpty()) {
+     *                     for (Terms.Bucket siteTag : siteTagsBuckets) {
+     *                         TopHits tophits = siteTag.getAggregations().get("ones");
+     *                         SearchHits topHits = tophits.getHits();
+     *                         SearchHit hit = topHits.getHits()[0];
+     *                         // 得到相关的数据
+     *                         Map<String, Object> deviceInfo = hit.getSourceAsMap();
+     *                         rn.add(deviceInfo);
+     *                     }
+     *                 }
+     *             }
+     *             return rn;
+     *         } catch (Exception e) {
+     *             throw new RuntimeException(e);
+     *         }
+     *     }
+     */
+
+
+    /** 按天分组
+     * {
+     *         BoolQueryBuilder boolQuery = ElasticUtil.buildBoolQueryBuilder(esQueryVo);
+     *         SearchSourceBuilder searchSourceBuilder = ElasticUtil.initSearchSourceBuilder(boolQuery, esQueryVo);
+     *         SearchRequest request = new SearchRequest(esQueryVo.getIdxName());
+     *         searchSourceBuilder.size(0);
+     *         AggregationBuilder aggregation = AggregationBuilders.terms("fieldTypes").field(fieldType).size(1000)//group 条件
+     *                 .subAggregation(AggregationBuilders.dateHistogram("alarmTimes").field("alarmTime") //按天分组
+     *                         .fixedInterval(DateHistogramInterval.DAY)
+     *                         .minDocCount(0)
+     *                         .timeZone(ZoneId.of("Asia/Shanghai"))
+     *                         .subAggregation(AggregationBuilders.terms("alarmTypes").field("alarmType").size(128)//再按其他条件分组
+     *                                 .subAggregation(AggregationBuilders.terms("deviceIds").field("deviceId").size(8000)))
+     *                 );
+     *         searchSourceBuilder.aggregation(aggregation);
+     *         request.source(searchSourceBuilder);
+     *         try {
+     *             SearchResponse response = restHighLevelClient.search(request, RequestOptions.DEFAULT);
+     *             if (response == null) {
+     *                 return Collections.emptyMap();
+     *             }
+     *             // 时间聚合
+     *             Terms fieldTypeTerms = response.getAggregations().get("fieldTypes");
+     *             List<? extends Terms.Bucket> fieldBuckets = fieldTypeTerms.getBuckets();
+     *             if (fieldBuckets.isEmpty()) {
+     *                 return Collections.emptyMap();
+     *             }
+     *             Map<String, Map<String, Integer>> map = new HashMap<>(fieldBuckets.size());
+     *             for (Terms.Bucket fieldBucket : fieldBuckets) {
+     *                 String fieldId = fieldBucket.getKeyAsString();
+     *                 ParsedDateHistogram alarmTimes = fieldBucket.getAggregations().get("alarmTimes");
+     *                 List<? extends Histogram.Bucket> alarmTimeBuckets = alarmTimes.getBuckets();
+     *                 if (alarmTimeBuckets.isEmpty()) {
+     *                     map.put(fieldId, Collections.emptyMap());
+     *                 } else {
+     *                     Map<String, Integer> alarmTypesMap = new HashMap<>();
+     *                     for (Histogram.Bucket alarmTime : alarmTimeBuckets) {
+     *                         Terms alarmTypes = alarmTime.getAggregations().get("alarmTypes");
+     *                         List<? extends Terms.Bucket> alarmTypesBuckets = alarmTypes.getBuckets();
+     *                         if (!alarmTypesBuckets.isEmpty()) {
+     *                             for (Terms.Bucket alarmType : alarmTypesBuckets) {
+     *                                 String alarmTypeCode = alarmType.getKey().toString();
+     *                                 Integer count = alarmTypesMap.get(alarmTypeCode) != null ? alarmTypesMap.get(alarmTypeCode) : 0;
+     *                                 Terms deviceIds = alarmType.getAggregations().get("deviceIds");
+     *                                 alarmTypesMap.put(alarmTypeCode, count + deviceIds.getBuckets().size());
+     *                             }
+     *                         }
+     *                     }
+     *                     map.put(fieldId, alarmTypesMap);
+     *                 }
+     *             }
+     *             return map;
+     *         } catch (Exception e) {
+     *             throw new RuntimeException(e);
+     *         }
+     *     }
+     */
 }
