@@ -1,10 +1,9 @@
 package com.appril.controller;
 
+import com.appril.entity.SysUser;
 import com.appril.util.RedisUtil;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
@@ -19,6 +18,9 @@ public class RedisController {
 
     @Resource
     private RedisUtil redisUtil;
+
+    @Resource
+    private RedisTemplate redisTemplate;
 
     @GetMapping("/stringSet")
     public Map<String,Object> stringSet(@RequestParam("key") String key, @RequestParam("value") String value){
@@ -72,5 +74,11 @@ public class RedisController {
             result.put("flag","ERROR");
         }
         return result;
+    }
+
+
+    @PostMapping("/sendMessage")
+    public void sendMessage(@RequestBody SysUser sysUser){
+        redisTemplate.convertAndSend("message:pool",sysUser);
     }
 }
