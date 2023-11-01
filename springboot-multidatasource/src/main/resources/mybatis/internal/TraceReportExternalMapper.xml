@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.appril.model.internal.mapper.TraceReportExternalMapper">
+
+    <select id="findRespTimeByCurrentHour"
+            resultType="com.appril.dto.OutsideServiceRespTimeReportDto">
+        select date_format(reuqest_start_date, '%H') as call_time,
+               max(cost_millisecond)                 as max_time,
+               avg(cost_millisecond)                 as avg_time,
+               min(cost_millisecond)                 as min_time
+        from trace_report_external
+        where reuqest_start_date >= #{startTime}
+        group by call_time
+    </select>
+
+</mapper>
