@@ -1,17 +1,13 @@
 package com.appril.datasource.config;
 
 import com.appril.adaptor.OutsideServiceAdaptor;
-import com.appril.adaptor.impl.ClickHouseOutsideServiceAdaptor;
 import com.appril.adaptor.impl.InternalOutsideServiceAdaptor;
-import com.appril.datasource.utils.SpringContextHolder;
 import com.appril.model.internal.service.TraceReportExternalMysqlService;
 import com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean;
 import org.apache.ibatis.session.SqlSessionFactory;
-import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
@@ -25,7 +21,7 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import javax.sql.DataSource;
 
 @Configuration
-@ConditionalOnProperty(name="spring.datasource.dynamic.type",havingValue = "internal")
+@ConditionalOnProperty(name = "spring.datasource.dynamic.type", havingValue = "internal")
 @MapperScan(basePackages = "com.appril.model.internal.mapper", sqlSessionFactoryRef = "internalSessionFactory")
 public class InternalDataSourceConfig {
 
@@ -42,6 +38,7 @@ public class InternalDataSourceConfig {
 
     /**
      * internalJdbcTemplate
+     *
      * @param dataSource 数据源
      * @return JdbcTemplate对象
      */
@@ -76,11 +73,10 @@ public class InternalDataSourceConfig {
     }
 
     @Configuration
-    @ConditionalOnProperty(name="spring.datasource.dynamic.type",havingValue = "internal")
-    public static class InternalAdaptor {
+    public class InternalAdaptor {
         @Bean(name = "internalOutsideServiceAdaptor")
-        public OutsideServiceAdaptor internalOutsideServiceAdaptor() {
-            return new InternalOutsideServiceAdaptor(SpringContextHolder.getBean(TraceReportExternalMysqlService.class));
+        public OutsideServiceAdaptor internalOutsideServiceAdaptor(TraceReportExternalMysqlService traceReportExternalMysqlService) {
+            return new InternalOutsideServiceAdaptor(traceReportExternalMysqlService);
         }
     }
 

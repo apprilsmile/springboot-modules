@@ -6,7 +6,7 @@ spring:
     name: multi-datasource-app
   datasource:
     dynamic:
-      type: mongodb #可选值 internal || clickhouse
+      type: internal #可选值 internal || clickhouse
     primary:
       driver-class-name: com.mysql.cj.jdbc.Driver
       jdbc-url: jdbc:mysql://172.20.81.32:3306/decision_outside_service_app?useUnicode=true&characterEncoding=UTF-8&rewriteBatchedStatements=true&useSSL=false&serverTimezone=GMT%2B8&autoReconnect=true

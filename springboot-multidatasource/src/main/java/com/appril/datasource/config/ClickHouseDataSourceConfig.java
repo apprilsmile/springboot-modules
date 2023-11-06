@@ -13,7 +13,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import javax.sql.DataSource;
 
 @Configuration
-@ConditionalOnProperty(name="spring.datasource.dynamic.type",havingValue = "clickhouse")
+@ConditionalOnProperty(name = "spring.datasource.dynamic.type", havingValue = "clickhouse")
 public class ClickHouseDataSourceConfig {
 
     /**
@@ -29,6 +29,7 @@ public class ClickHouseDataSourceConfig {
 
     /**
      * clickHouseJdbcTemplate
+     *
      * @param dataSource 数据源
      * @return JdbcTemplate对象
      */
@@ -38,8 +39,7 @@ public class ClickHouseDataSourceConfig {
     }
 
     @Configuration
-    @ConditionalOnProperty(name="spring.datasource.dynamic.type",havingValue = "clickhouse")
-    public static class ClickHouseAdaptor {
+    public class ClickHouseAdaptor {
         @Bean(name = "clickHouseOutsideServiceAdaptor")
         public OutsideServiceAdaptor clickHouseOutsideServiceAdaptor(@Qualifier("clickHouseJdbcTemplate") JdbcTemplate jdbcTemplate) {
             return new ClickHouseOutsideServiceAdaptor(jdbcTemplate);
