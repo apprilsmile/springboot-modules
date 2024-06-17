@@ -17,6 +17,7 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.transaction.support.TransactionTemplate;
 
 import javax.sql.DataSource;
 
@@ -70,6 +71,17 @@ public class InternalDataSourceConfig {
     @Primary
     public DataSourceTransactionManager internalTransactionManager(@Qualifier("internalDataSource") DataSource dataSource) {
         return new DataSourceTransactionManager(dataSource);
+    }
+
+    /**
+     * internalTransactionTemplate
+     *
+     * @param internalDataSourceTransactionManager
+     * @return org.springframework.transaction.support.TransactionTemplate
+     */
+    @Bean("internalTransactionTemplate")
+    public TransactionTemplate internalTransactionTemplate(@Qualifier("internalTransactionManager") DataSourceTransactionManager internalDataSourceTransactionManager) {
+        return new TransactionTemplate(internalDataSourceTransactionManager);
     }
 
     @Configuration

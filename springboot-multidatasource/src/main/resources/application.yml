@@ -6,7 +6,7 @@ spring:
     name: multi-datasource-app
   datasource:
     dynamic:
-      type: internal #可选值 internal || clickhouse
+      type: clickhouse #可选值 internal || clickhouse
     primary:
       driver-class-name: com.mysql.cj.jdbc.Driver
       jdbc-url: jdbc:mysql://172.20.81.32:3306/decision_outside_service_app?useUnicode=true&characterEncoding=UTF-8&rewriteBatchedStatements=true&useSSL=false&serverTimezone=GMT%2B8&autoReconnect=true
@@ -22,10 +22,6 @@ spring:
       jdbc-url: jdbc:mysql://172.20.81.32:3306/var_process_internal_data?useUnicode=true&characterEncoding=UTF-8&rewriteBatchedStatements=true&useSSL=false&serverTimezone=GMT%2B8&autoReconnect=true
       username: root
       password: wiseco@456
-  data:
-    mongodb:
-      # autoIndexCreation: false
-      uri: mongodb://admin:123456@192.168.1.143:30897/var_process_app?authSource=admin&authMechanism=SCRAM-SHA-1
   redis:
     host: 172.20.81.61
     port: 6379
