@@ -4,8 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
-
-import java.util.concurrent.TimeUnit;
+import redis.clients.jedis.params.SetParams;
 
 @Component
 public final class RedisUtil {
@@ -86,7 +85,7 @@ public final class RedisUtil {
     /**
      * 向Redis中存值，有超时时间
      */
-    public String setExpire(String key, String value,long expireSecond) {
+    public String setExpire(String key, String value, long expireSecond) {
         Jedis jedis = null;
         try {
             jedis = jedisPool.getResource();
@@ -95,7 +94,10 @@ public final class RedisUtil {
                 jedis.del(key);
             }
             // NX是不存在时才set， XX是存在时才set， EX是秒，PX是毫秒
-            return jedis.set(key, value, "NX", "EX", expireSecond);
+            SetParams params = new SetParams();
+            params.ex((int) expireSecond);
+            params.nx();
+            return jedis.set(key, value, params);
         } catch (Exception e) {
             return "0";
         } finally {

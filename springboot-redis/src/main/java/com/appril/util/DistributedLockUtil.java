@@ -1,10 +1,10 @@
 package com.appril.util;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
+import redis.clients.jedis.params.SetParams;
 
 import java.util.Collections;
 
@@ -22,16 +22,20 @@ public class DistributedLockUtil {
 
     /**
      * 尝试获取分布式锁
+     *
      * @param lockKey    锁
      * @param requestId  请求标识
      * @param expireTime 超期时间
      * @return 是否获取成功
      */
-    public  boolean tryGetDistributedLock( String lockKey, String requestId, int expireTime) {
+    public boolean tryGetDistributedLock(String lockKey, String requestId, int expireTime) {
         Jedis jedis = null;
         try {
             jedis = jedisPool.getResource();
-            String result = jedis.set(lockKey, requestId, SET_IF_NOT_EXIST, SET_WITH_EXPIRE_TIME, expireTime);
+            SetParams params = new SetParams();
+            params.ex(expireTime);
+            params.nx();
+            String result = jedis.set(lockKey, requestId, params);
             if (LOCK_SUCCESS.equals(result)) {
                 return true;
             }
@@ -49,12 +53,11 @@ public class DistributedLockUtil {
     /**
      * 释放分布式锁
      *
-     *
      * @param lockKey   锁
      * @param requestId 请求标识
      * @return 是否释放成功
      */
-    public  boolean releaseDistributedLock( String lockKey, String requestId) {
+    public boolean releaseDistributedLock(String lockKey, String requestId) {
         Jedis jedis = null;
         try {
             jedis = jedisPool.getResource();
